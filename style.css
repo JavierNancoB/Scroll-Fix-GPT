@@ -1,34 +1,44 @@
-/* ✅ Permitir scroll normal y visible */
+/* ✅ Contenedor principal del chat con scroll global */
 div[class*="overflow-y-auto"][class*="flex-col"] {
   overflow-y: auto !important;
   position: relative !important;
   z-index: 1 !important;
-  max-height: calc(100vh - 150px) !important; /* Limita el área de scroll al 100% de pantalla menos espacio inferior */
+  max-height: calc(100vh - 150px) !important;
 }
 
-/* ✅ Restaurar visibilidad del scrollbar (estético) */
-div[class*="overflow-y-auto"][class*="flex-col"]::-webkit-scrollbar {
-  width: 12px;
-}
-div[class*="overflow-y-auto"][class*="flex-col"]::-webkit-scrollbar-thumb {
-  background-color: rgba(80, 80, 80, 0.7);
-}
-
-/* ✅ Arreglar .content-fade para no bloquear eventos del mouse */
-.content-fade {
-  pointer-events: none !important;
-  z-index: 0 !important;
-}
-.content-fade * {
-  pointer-events: auto !important;
+/* ✅ Contenedor del input con límite de altura y scroll interno */
+div[class*="_prosemirror-parent"] {
+  max-height: 200px !important;
+  overflow-y: auto !important;  /* Habilita scroll interno */
+  overscroll-behavior: contain !important; /* Previene que se propague el scroll al contenedor padre */
+  display: flex !important;
+  flex-direction: column !important;
+  flex-grow: 1 !important;
 }
 
-/* ✅ Evitar que la caja de texto se mezcle o colapse */
-form.stretch {
-  position: sticky !important;
-  bottom: 0 !important;
-  z-index: 20 !important;
-  background-color: white !important; /* Ajustar si usas modo oscuro */
-  padding-bottom: 1rem !important;
-  border-top: 1px solid #ccc;
+/* ✅ Editor como tal (ProseMirror) con comportamiento natural */
+div.ProseMirror {
+  min-height: 2.5rem !important;
+  height: auto !important;
+  max-height: none !important;
+  overflow-wrap: break-word !important;
+  white-space: pre-wrap !important;
+  outline: none !important;
+  padding: 0.5rem !important;
+  line-height: 1.5 !important;
+  font-size: 1rem !important;
+  font-family: inherit !important;
+  color: black !important;
+  background: white !important;
+  border-radius: 6px !important;
+  overflow-y: visible !important;
+}
+
+/* ✅ Asegura que al escribir mucho, el contenedor pueda hacer scroll */
+div[class*="_prosemirror-parent"]::-webkit-scrollbar {
+  width: 6px;
+}
+div[class*="_prosemirror-parent"]::-webkit-scrollbar-thumb {
+  background-color: rgba(0, 0, 0, 0.2);
+  border-radius: 4px;
 }
