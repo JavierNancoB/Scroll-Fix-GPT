@@ -1,38 +1,34 @@
-/* Estética del scrollbar */
-::-webkit-scrollbar {
+/* ✅ Permitir scroll normal y visible */
+div[class*="overflow-y-auto"][class*="flex-col"] {
+  overflow-y: auto !important;
+  position: relative !important;
+  z-index: 1 !important;
+  max-height: calc(100vh - 150px) !important; /* Limita el área de scroll al 100% de pantalla menos espacio inferior */
+}
+
+/* ✅ Restaurar visibilidad del scrollbar (estético) */
+div[class*="overflow-y-auto"][class*="flex-col"]::-webkit-scrollbar {
   width: 12px;
 }
-::-webkit-scrollbar-track {
-  background: rgba(0, 0, 0, 0.05);
-}
-::-webkit-scrollbar-thumb {
-  background-color: rgba(100, 100, 100, 0.5);
-  border-radius: 6px;
-  border: 3px solid transparent;
-  background-clip: content-box;
-}
-* {
-  scrollbar-width: thin;
-  scrollbar-color: rgba(100, 100, 100, 0.5) rgba(0, 0, 0, 0.05);
+div[class*="overflow-y-auto"][class*="flex-col"]::-webkit-scrollbar-thumb {
+  background-color: rgba(80, 80, 80, 0.7);
 }
 
-/* Evita scroll duplicado en html/body */
-html, body {
-  overflow: hidden !important;
-  height: 100% !important;
+/* ✅ Arreglar .content-fade para no bloquear eventos del mouse */
+.content-fade {
+  pointer-events: none !important;
+  z-index: 0 !important;
+}
+.content-fade * {
+  pointer-events: auto !important;
 }
 
-/* Forzamos scroll solo en el contenedor de mensajes */
-div[class*="overflow-y-auto"][class*="flex-col"] {
-  overflow-y: scroll !important;
-  overflow-x: hidden !important;
-  z-index: 9999 !important;
-  padding-right: 4px !important; /* Ayuda a agarrar el scroll */
-  position: relative !important;
-}
-
-/* Opcional: si el input flota, asegúrate que no tape el scroll */
-div[class*="sticky"][class*="bottom"] {
-  z-index: 1 !important;
-  background: white !important;
+/* ✅ Evitar que la caja de texto se mezcle o colapse */
+form.stretch {
+  position: sticky !important;
+  bottom: 0 !important;
+  z-index: 20 !important;
+  background-color: white !important; /* Ajustar si usas modo oscuro */
+  padding-bottom: 1rem !important;
+  border-top: 1px solid #ccc;
 }
