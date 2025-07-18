@@ -1,0 +1,38 @@
+/* Estética del scrollbar */
+::-webkit-scrollbar {
+  width: 12px;
+}
+::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.05);
+}
+::-webkit-scrollbar-thumb {
+  background-color: rgba(100, 100, 100, 0.5);
+  border-radius: 6px;
+  border: 3px solid transparent;
+  background-clip: content-box;
+}
+* {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(100, 100, 100, 0.5) rgba(0, 0, 0, 0.05);
+}
+
+/* Evita scroll duplicado en html/body */
+html, body {
+  overflow: hidden !important;
+  height: 100% !important;
+}
+
+/* Forzamos scroll solo en el contenedor de mensajes */
+div[class*="overflow-y-auto"][class*="flex-col"] {
+  overflow-y: scroll !important;
+  overflow-x: hidden !important;
+  z-index: 9999 !important;
+  padding-right: 4px !important; /* Ayuda a agarrar el scroll */
+  position: relative !important;
+}
+
+/* Opcional: si el input flota, asegúrate que no tape el scroll */
+div[class*="sticky"][class*="bottom"] {
+  z-index: 1 !important;
+  background: white !important;
+}
